@@ -29,6 +29,10 @@
                 <button id = "resetButton"> Reset </button>
             </div>
         </div>
+
+        <div class = "column">
+            <p id = "calculatedTimeDisplay"> Study time: Break Time: </p>
+        </div>
         
         <div class = "column">
             <div class="descText">
@@ -67,7 +71,7 @@
             <div style="text-align: center; margin-bottom: 1.5rem;">
                 <div id="rating-label-2">Okay</div>
                 <div id="rating-sub-2">3 / 5</div>
-                    <input type="range" id="overallSlider" min="1" max="5" value="3" step="1" oninput="updateSlider(2, this.value)" style="width: 100%;"/>
+                    <input type="range" id="studySlider" min="1" max="5" value="3" step="1" oninput="updateSlider(2, this.value)" style="width: 100%;"/>
                 <div style="display:flex; justify-content:space-between; margin-top:6px;">
                     <span style="font-size:12px; color:#5d8353;">Worst</span>
                     <span style="font-size:12px; color:#c65757;">Best</span>
@@ -80,7 +84,7 @@
             <div style="text-align: center; margin-bottom: 1.5rem;">
                 <div id="rating-label-3">Okay</div>
                 <div id="rating-sub-3">3 / 5</div>
-                    <input type="range" id="overallSlider" min="1" max="5" value="3" step="1" oninput="updateSlider(3, this.value)" style="width: 100%;"/>
+                    <input type="range" id="breakSlider" min="1" max="5" value="3" step="1" oninput="updateSlider(3, this.value)" style="width: 100%;"/>
                 <div style="display:flex; justify-content:space-between; margin-top:6px;">
                     <span style="font-size:12px; color:#5d8353;">Worst</span>
                     <span style="font-size:12px; color:#c65757;">Best</span>
@@ -94,7 +98,7 @@
             <div style="text-align: center; margin-bottom: 1.5rem;">
                 <div id="rating-label-4">Okay</div>
                 <div id="rating-sub-4">3 / 5</div>
-                    <input type="range" id="overallSlider" min="1" max="5" value="3" step="1" oninput="updateSlider(4, this.value)" style="width: 100%;"/>
+                    <input type="range" id="afterSlider" min="1" max="5" value="3" step="1" oninput="updateSlider(4, this.value)" style="width: 100%;"/>
                 <div style="display:flex; justify-content:space-between; margin-top:6px;">
                     <span style="font-size:12px; color:#5d8353;">Worst</span>
                     <span style="font-size:12px; color:#c65757;">Best</span>
@@ -107,7 +111,7 @@
             <div style="text-align: center; margin-bottom: 1.5rem;">
                 <div id="rating-label-5">Okay</div>
                 <div id="rating-sub-5">3 / 5</div>
-                    <input type="range" id="overallSlider" min="1" max="5" value="3" step="1" oninput="updateSlider(5, this.value)" style="width: 100%;"/>
+                    <input type="range" id="motivationSlider" min="1" max="5" value="3" step="1" oninput="updateSlider(5, this.value)" style="width: 100%;"/>
                 <div style="display:flex; justify-content:space-between; margin-top:6px;">
                     <span style="font-size:12px; color:#5d8353;">Worst</span>
                     <span style="font-size:12px; color:#c65757;">Best</span>

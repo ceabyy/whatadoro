@@ -1,4 +1,4 @@
-export function weightedAverage(ratings, studyTime, breakTime) { // function is to be used in the timer handler
+function weightedAverage(ratings, studyTime, breakTime) { // function is to be used in the timer handler
 
     // these will be changed to output times based off of the algorithm
     let currentStudyTime = studyTime;
