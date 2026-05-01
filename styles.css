@@ -1,0 +1,94 @@
+body {
+    background-color: #f2edd9;
+    font-family: Autour One, 'Helvetica', 'Arial', 'sans-serif';
+}
+
+.top{
+    text-align: center;
+    font-family: Autour One, Helvetica, Arial, sans-serif;
+}
+
+.subheader{
+    text-align: center;
+    font-size: 30px;
+    font-family: Autour One, Helvetica, Arial, sans-serif;
+}
+
+.descText {
+    font-size: 15px;
+    font-family: Autour One, 'Helvetica', 'Arial', 'sans-serif';
+    list-style-type: none;
+    text-align: center;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 10%;
+    border-radius: 25px;
+    line-height: 1.5;
+}
+
+.timerInterface {
+  text-align: center;
+}
+
+.timer {
+    display: inline-block;
+    background-color: #ca5048;
+    color: white;
+    font-family: Autour One, 'Helvetica', 'Arial', 'sans-serif';
+    font-size: 80px;
+
+    
+    justify-content: center;
+    padding: 10px 20px;
+    margin-left: 30%;
+    margin-right: 30%;
+    margin-bottom: 2%;
+    text-align: center;
+    border-radius: 25px;
+
+    border: 5px rgb(77, 73, 73) solid;
+}
+
+.buttons {
+    display: inline-block;
+    background-color: #ca5048;
+    font-family: Autour One, 'Helvetica', 'Arial', 'sans-serif';
+
+    padding: 10px 20px;
+    border-radius: 12px;
+}
+
+.timeRecommendation {
+    display: none;
+    text-align: center;
+    font-size: 20px;
+    font-style: italic;
+    font-family: Autour One, 'Helvetica', 'Arial', 'sans-serif';
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Handling pop up */
+
+.rating-label{
+    font-size: 22px; 
+    font-weight: 500px;
+    margin-bottom: 4px;
+}
+
+.rating-sub{
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 1.25rem;
+}
+
+.hr {
+    border: none;
+    border-top: 5px solid #8a8180;
+    margin: 1.5rem 0;
+}
