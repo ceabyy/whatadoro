@@ -1,12 +1,10 @@
 // other elements
-breakToggle = document.getElementById("breakToggle");
 timer = document.getElementById("timer");
 
 // buttons on the timer webpage; check HTML document for reference
 startButton = document.getElementById("startButton");
 stopButton = document.getElementById("stopButton");
 resetButton = document.getElementById("resetButton");
-breakToggle = document.getElementById("breakToggle");
 recommendedTimeDisplay = document.getElementById("calculatedTimeDisplay");
 
 // popUp initialization
@@ -19,11 +17,12 @@ minutes = 0;
 seconds = 0;
 
 //session type
-sessionType = 'study';
+sessionType = 'study'; // always starts off as study
 
 // ALGORITHMIC FUNCTIONS
 
 function weightedAverage(ratings, studyTime, breakTime) { // function is to be used in the timer handler
+    const TOTAL_TIME = 30 * 60; // 1800 seconds, always fixed
 
     // these will be changed to output times based off of the algorithm
     currentStudyTime = studyTime;
@@ -39,9 +38,11 @@ function weightedAverage(ratings, studyTime, breakTime) { // function is to be u
     if (sum <= 2) {
         currentStudyTime *= 0.8
         currentBreakTime *= 1.2
-    } else if (sum >2 && sum <= 3) {
+    } else if (sum >2 && sum < 3) {
         currentStudyTime *= 0.85
         currentBreakTime *= 1.1
+    } else if (sum === 3) {
+        // no change
     } else if (sum >3 && sum <= 3.75) {
         currentStudyTime *= 1.05
         currentBreakTime *= 0.9
@@ -52,6 +53,10 @@ function weightedAverage(ratings, studyTime, breakTime) { // function is to be u
         currentStudyTime *= 1.15
         currentBreakTime *= 0.75
     }
+
+    const newTotal = currentStudyTime + currentBreakTime;
+    currentStudyTime = (currentStudyTime / newTotal) * TOTAL_TIME;
+    currentBreakTime = (currentBreakTime / newTotal) * TOTAL_TIME;
 
     return { studyTime: Math.round(currentStudyTime), breakTime: Math.round(currentBreakTime) };
 }
@@ -89,7 +94,7 @@ init();
 
 function loadData() {
     const saved = localStorage.getItem('userSessionData');
-    return saved ? JSON.parse(saved) : [];
+    return saved ? JSON.parse(saved) : []; // checks if there is a saved file, if not return an empty array
 }
 
 function saveSessionData(newEntry) {
@@ -120,7 +125,7 @@ function closePopUp() {
     stopButton.disabled = true;
     startButton.disabled = false;
     resetButton.disabled = false;
-    breakToggle.disabled = false;
+
 
     // use ratings from popup
     overallRating = Number(document.getElementById("overallSlider").value);
@@ -173,19 +178,13 @@ function updateSlider(num, val) {
     document.getElementById('rating-sub-' + num).textContent = val + ' / 5';
 }
 
-// change colour to indicate break or not.
-breakToggle.addEventListener("change", () => {
-    if (breakToggle.checked) {
-        timer.style.backgroundColor = "#5d8353";
-    } else {
-        timer.style.backgroundColor = "#ca5048";
-    }
-});
 
 // handles what happens when you press the start button
 startButton.addEventListener("click", () => {
 
-    if (breakToggle.checked == false) {
+    sessionPhase = 'study';
+
+    if (sessionPhase === 'study') {
         time = studyTime
     } else {
         time = breakTime
@@ -199,7 +198,6 @@ startButton.addEventListener("click", () => {
     startButton.disabled = true;
     stopButton.disabled = false;
     resetButton.disabled = true;
-    breakToggle.disabled = true;
     stopped = false;
     reset = false;
     poppedUp = false;
@@ -208,7 +206,7 @@ startButton.addEventListener("click", () => {
 // handles what happens when you press the stop button
 stopButton.addEventListener("click", () => {
     stopButton.disabled = true;
-    startButton.disabled = false;
+    startButton.disabled = true;
     resetButton.disabled = false;
     stopped = true;
 });
@@ -216,9 +214,6 @@ stopButton.addEventListener("click", () => {
 // handles what happens when you press the reset button
 resetButton.addEventListener("click", () => {
     document.getElementById("timer").textContent = "RESET";
-
-    // enable break button
-    breakToggle.disabled = false;
 
     // reset variables to 0
     seconds = 0;
@@ -229,8 +224,10 @@ resetButton.addEventListener("click", () => {
     timer.textContent = minutes + "m " + seconds + "s";
 
     // mark that reset has happened
+    startButton.disabled = false;
     poppedUp = false;
     reset = true;
+    sessionPhase = 'study';
 
 });
 
@@ -240,7 +237,7 @@ setInterval(() => {
         if (seconds == 0 && minutes > 0) {
             --minutes;
             seconds = 59;
-        } else if (seconds > 0) {  // ✅ only decrement if seconds > 0
+        } else if (seconds > 0) {
             --seconds;
         }
 
@@ -248,13 +245,23 @@ setInterval(() => {
         timer.textContent = minutes + "m " + seconds + "s";
     }
 
-    if (time <= 0 && poppedUp == false && reset == false) {
-        openPopUp();
-        stopped = true;
-        poppedUp = true;
+    if (time <= 0 && stopped == false) {
+        if (sessionPhase === 'study') {
+            // study done — auto switch to break
+            sessionPhase = 'break';
+            time = breakTime;
+            minutes = Math.trunc(time / 60);
+            seconds = time % 60;
+            timer.style.backgroundColor = "#5d8353"; // green for break
+        } else {
+            // break done — pair complete, show popup
+            stopped = true;
+            sessionPhase = 'study'; // reset for next pair
+            timer.style.backgroundColor = "#ca5048";
+            openPopUp();
+        }
     }
-}, 1);
-
+}, 1); // change for simulation
 
 // !! FURTHER NOTES BELOW.
 
