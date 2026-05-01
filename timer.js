@@ -22,8 +22,12 @@ breakTime = 5*60;
 time = 0; // current time as shown by timer
 
 // as dictated by the algorithm. by default 25 min study, 5 min break.
-studyTime = 25*60;
+studyTime = 3;
 breakTime = 5*60;
+
+// IMPORTED FUNCTIONS
+
+import { weightedAverage } from "./functions.js";
 
 // function to open pop up
 
@@ -39,15 +43,26 @@ function closePopUp() {
     seconds = 0;
     time = 0;
 
-    // reset states to defauly in UI
+    // reset states to default in UI
     timer.textContent = minutes + "m " + seconds + "s";
     stopped = true;
     stopButton.disabled = true;
     startButton.disabled = false;
     resetButton.disabled = false;
     breakToggle.disabled = false;
-}
 
+    // use ratings from popup
+    overallRating = Number(document.getElementById("rating-slider-1").value);
+    studyRating = Number(document.getElementById("rating-slider-2").value);
+    breakRating = Number(document.getElementById("rating-slider-3").value);
+    afterRating = Number(document.getElementById("rating-slider-4").value);
+    motivationRating = Number(document.getElementById("rating-slider-5").value);
+
+    // call function to output a recommended time for study and break, let this depend on the number of entries done
+
+    // save data to local storage
+
+}
 
 // handling the sliders
 
@@ -141,5 +156,3 @@ setInterval(() => {
     50+: random forest
     100+: neural network
 */
-
-// HANDLING THE DATA STORAGE, USING LOCALSTORAGE
