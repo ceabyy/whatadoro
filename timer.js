@@ -261,7 +261,7 @@ setInterval(() => {
             openPopUp();
         }
     }
-}, 1000); // change for simulation
+}, 1); // change for simulation
 
 // !! FURTHER NOTES BELOW.
 
