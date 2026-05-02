@@ -19,8 +19,37 @@ seconds = 0;
 //session type
 sessionType = 'study'; // always starts off as study
 
-// ALGORITHMIC FUNCTIONS
+// initialisation
 
+function init() {
+    startUserData = loadData(); 
+
+    if (startUserData.length === 0) {
+        // no sessions yet, use defaults
+        studyTime = 25*60;
+        breakTime = 5 * 60;
+    } else {
+        // grab the most recent session
+        const lastSession = startUserData[startUserData.length - 1];
+        studyTime = lastSession.newStudyTime;
+        breakTime = lastSession.newBreakTime;
+    }
+
+    time = studyTime; // just for default and functionality
+    
+    startBreakTime_min = Math.floor(breakTime/60);
+    startBreakTime_sec = breakTime%60
+    startStudyTime_min = Math.floor(studyTime/60);
+    startStudyTime_sec = studyTime%60;
+
+    recommendedTimeDisplay.textContent = `Study time: ${startStudyTime_min}m ${startStudyTime_sec}s, Break time: ${startBreakTime_min}m ${startBreakTime_sec}s`;
+}
+
+init();
+
+// ALGORITHMS FOR THE RECOMMENDED STUDY TIMES
+
+// weightedAverage
 function weightedAverage(ratings, studyTime, breakTime) { // function is to be used in the timer handler
     const TOTAL_TIME = 30 * 60; // 1800 seconds, always fixed
 
@@ -60,35 +89,6 @@ function weightedAverage(ratings, studyTime, breakTime) { // function is to be u
 
     return { studyTime: Math.round(currentStudyTime), breakTime: Math.round(currentBreakTime) };
 }
-
-// initialisation
-
-function init() {
-    startUserData = loadData(); 
-
-    if (startUserData.length === 0) {
-        // no sessions yet, use defaults
-        studyTime = 25*60;
-        breakTime = 5 * 60;
-    } else {
-        // grab the most recent session
-        const lastSession = startUserData[startUserData.length - 1];
-        studyTime = lastSession.newStudyTime;
-        breakTime = lastSession.newBreakTime;
-    }
-
-    time = studyTime; // just for default and functionality
-    
-    startBreakTime_min = Math.floor(breakTime/60);
-    startBreakTime_sec = breakTime%60
-    startStudyTime_min = Math.floor(studyTime/60);
-    startStudyTime_sec = studyTime%60;
-
-
-    recommendedTimeDisplay.textContent = `Study time: ${startStudyTime_min}m ${startStudyTime_sec}s, Break time: ${startBreakTime_min}m ${startBreakTime_sec}s`;
-}
-
-init();
 
 // functions for data handling
 
@@ -275,8 +275,7 @@ setInterval(() => {
     
     Global variable regarding the amount of sessions there have been done i.e. after a consecutive study and break, increment
 
-    < 20: weighted average algorithm
-    20-50: linear regression
-    50+: random forest
-    100+: neural network
+    < 25: weighted average algorithm
+    25+: other algorithm
+
 */
