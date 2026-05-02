@@ -229,6 +229,9 @@ resetButton.addEventListener("click", () => {
     reset = true;
     sessionPhase = 'study';
 
+    // handle colour
+    timer.style.backgroundColor = "#ca5048";
+
 });
 
 // timer handler, setInterval uses milliseconds as a unit
