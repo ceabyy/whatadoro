@@ -1,5 +1,7 @@
 This project is an AI-powered pomodoro timer.
 
+Feel free to look at the front-end parts, and the core functions, **but the actual model behind the timer has not been fully implemented yet.**
+
 I've currently mostly worked on the front-end part, and some back-end things such as the timer workings as well a weighted avg. function to adjust timings. I am currently researching other algorithms and models I might want to use when the user has enough entries/uses.
 
 The code does need cleanup, so I will eventually work on this once I decide on the second algorithm to use.
